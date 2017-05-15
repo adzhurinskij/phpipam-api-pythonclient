@@ -90,11 +90,13 @@ class PHPIPAM:
             elif method == 'DELETE':
                 response = requests.delete(url, headers=headers, verify=False, allow_redirects=False)
             else:
-                return "Wrong method"
+                print "Wrong method"
+                return None
         except Exception as error:
-            return error
+            print error
+            return None
 
-        return response.text.encode('utf8')
+        return json.loads(response.text.encode('utf8'))
 
     def generic(self, controller, method, **kwargs):
         """Query PHPIPAM 
@@ -193,6 +195,68 @@ class PHPIPAM:
         data = {
             "controller": "tools",
             "id": "devices",
+            "id2": id
+        }
+
+        return self.query_phpipam(method='DELETE', **data)
+
+    """
+    Manage locations
+
+    Locations fields:
+    +-------------+------------------+------+-----+---------+----------------+
+    | Field       | Type             | Null | Key | Default | Extra          |
+    +-------------+------------------+------+-----+---------+----------------+
+    | id          | int(11) unsigned | NO   | PRI | NULL    | auto_increment |
+    | name        | varchar(128)     | NO   |     |         |                |
+    | description | text             | YES  |     | NULL    |                |
+    | lat         | varchar(12)      | YES  |     | NULL    |                |
+    | long        | varchar(12)      | YES  |     | NULL    |                |
+    | address     | varchar(128)     | YES  |     | NULL    |                |
+    +-------------+------------------+------+-----+---------+----------------+
+
+    """
+
+    def create_locations(self, **kwargs):
+        """Create locations"""
+        data = {
+            "controller": "tools",
+            "id": "locations",
+        }
+
+        data.update(kwargs)
+
+        return self.query_phpipam(method='POST', **data)
+
+    def read_locations(self, id=None):
+        """Read locations"""
+        data = {
+            "controller": "tools",
+            "id": "locations"
+        }
+
+        if id is not None:
+            data.update({"id2": id})
+
+        return self.query_phpipam(method='GET', **data)
+
+    def update_locations(self, id, **kwargs):
+        """Update locations"""
+        data = {
+            "controller": "tools",
+            "id": "locations",
+            "id2": id
+        }
+
+        data.update(kwargs)
+
+        return self.query_phpipam(method='PATCH', **data)
+
+    def delete_locations(self, id):
+        """Delete locations"""
+        data = {
+            "controller": "tools",
+            "id": "locations",
             "id2": id
         }
 
