@@ -120,37 +120,34 @@ class PHPIPAM:
 
     """
     Manage devices.
+
+    Devices fields:
+    +----------------+-----------------------+------+-----+---------+-----------------------------+
+    | Field          | Type                  | Null | Key | Default | Extra                       |
+    +----------------+-----------------------+------+-----+---------+-----------------------------+
+    | id             | int(11) unsigned      | NO   | PRI | NULL    | auto_increment              |
+    | hostname       | varchar(32)           | YES  | MUL | NULL    |                             |
+    | ip_addr        | varchar(100)          | YES  |     | NULL    |                             |
+    | type           | int(2)                | YES  |     | 0       |                             |
+    | vendor         | varchar(156)          | YES  |     | NULL    |                             |
+    | model          | varchar(124)          | YES  |     | NULL    |                             |
+    | description    | varchar(256)          | YES  |     | NULL    |                             |
+    | sections       | varchar(1024)         | YES  |     | NULL    |                             |
+    | editDate       | timestamp             | YES  |     | NULL    | on update CURRENT_TIMESTAMP |
+    | snmp_community | varchar(100)          | YES  |     | NULL    |                             |
+    | snmp_version   | set('0','1','2')      | YES  |     | 0       |                             |
+    | snmp_port      | mediumint(5) unsigned | YES  |     | 161     |                             |
+    | snmp_timeout   | mediumint(5) unsigned | YES  |     | 1000000 |                             |
+    | snmp_queries   | varchar(128)          | YES  |     | NULL    |                             |
+    | rack           | int(11) unsigned      | YES  |     | NULL    |                             |
+    | rack_start     | int(11) unsigned      | YES  |     | NULL    |                             |
+    | rack_size      | int(11) unsigned      | YES  |     | NULL    |                             |
+    | location       | int(11) unsigned      | YES  |     | NULL    |                             |
+    +----------------+-----------------------+------+-----+---------+-----------------------------+
     """
 
     def create_devices(self, **kwargs):
-        """
-        Create device.
-
-        Database fields:
-        +----------------+-----------------------+------+-----+---------+-----------------------------+
-        | Field          | Type                  | Null | Key | Default | Extra                       |
-        +----------------+-----------------------+------+-----+---------+-----------------------------+
-        | id             | int(11) unsigned      | NO   | PRI | NULL    | auto_increment              |
-        | hostname       | varchar(32)           | YES  | MUL | NULL    |                             |
-        | ip_addr        | varchar(100)          | YES  |     | NULL    |                             |
-        | type           | int(2)                | YES  |     | 0       |                             |
-        | vendor         | varchar(156)          | YES  |     | NULL    |                             |
-        | model          | varchar(124)          | YES  |     | NULL    |                             |
-        | description    | varchar(256)          | YES  |     | NULL    |                             |
-        | sections       | varchar(1024)         | YES  |     | NULL    |                             |
-        | editDate       | timestamp             | YES  |     | NULL    | on update CURRENT_TIMESTAMP |
-        | snmp_community | varchar(100)          | YES  |     | NULL    |                             |
-        | snmp_version   | set('0','1','2')      | YES  |     | 0       |                             |
-        | snmp_port      | mediumint(5) unsigned | YES  |     | 161     |                             |
-        | snmp_timeout   | mediumint(5) unsigned | YES  |     | 1000000 |                             |
-        | snmp_queries   | varchar(128)          | YES  |     | NULL    |                             |
-        | rack           | int(11) unsigned      | YES  |     | NULL    |                             |
-        | rack_start     | int(11) unsigned      | YES  |     | NULL    |                             |
-        | rack_size      | int(11) unsigned      | YES  |     | NULL    |                             |
-        | location       | int(11) unsigned      | YES  |     | NULL    |                             |
-        +----------------+-----------------------+------+-----+---------+-----------------------------+
-
-        """
+        """Create device"""
         data = {
             "controller": "tools",
             "id": "devices",
