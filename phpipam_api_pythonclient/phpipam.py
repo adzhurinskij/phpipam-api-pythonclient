@@ -122,7 +122,7 @@ class PHPIPAM:
     Manage devices.
     """
 
-    def create_devices(self, device_type=None, **kwargs):
+    def create_devices(self, **kwargs):
         """
         Create device.
 
@@ -158,9 +158,6 @@ class PHPIPAM:
 
         data.update(kwargs)
 
-        if device_type is not None:
-            data.update({"type": device_type})
-
         return self.query_phpipam(method='POST', **data)
 
     def read_devices(self, id=None):
@@ -175,7 +172,7 @@ class PHPIPAM:
 
         return self.query_phpipam(method='GET', **data)
 
-    def update_devices(self, id, device_type=None, **kwargs):
+    def update_devices(self, id, **kwargs):
         data = {
             "controller": "tools",
             "id": "devices",
@@ -184,9 +181,6 @@ class PHPIPAM:
         }
 
         data.update(kwargs)
-
-        if device_type is not None:
-            data.update({"type": device_type})
 
         return self.query_phpipam(method='PATCH', **data)
 
