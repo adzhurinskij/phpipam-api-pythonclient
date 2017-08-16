@@ -78,17 +78,15 @@ class PHPIPAM:
 
         url = '%s/?%s' % (self.url, urllib.urlencode(data, True))
 
-        headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/plain"}
-
         try:
             if method == 'GET':
-                response = requests.get(url, headers=headers, verify=False, allow_redirects=False)
+                response = requests.get(url, verify=False, allow_redirects=False)
             elif method == 'POST':
-                response = requests.post(url, headers=headers, verify=False, allow_redirects=False)
+                response = requests.post(url, verify=False, allow_redirects=False)
             elif method == 'PATCH':
-                response = requests.patch(url, headers=headers, verify=False, allow_redirects=False)
+                response = requests.patch(url, verify=False, allow_redirects=False)
             elif method == 'DELETE':
-                response = requests.delete(url, headers=headers, verify=False, allow_redirects=False)
+                response = requests.delete(url, verify=False, allow_redirects=False)
             else:
                 print "Wrong method"
                 return None
@@ -252,3 +250,39 @@ class PHPIPAM:
         }
 
         return self.query_phpipam(method='DELETE', **data)
+
+    """
+    Manage sections
+
+    Sections fields:
+    +------------------+---------------+------+-----+---------+-----------------------------+
+    | Field            | Type          | Null | Key | Default | Extra                       |
+    +------------------+---------------+------+-----+---------+-----------------------------+
+    | id               | int(11)       | NO   | UNI | NULL    | auto_increment              |
+    | name             | varchar(128)  | NO   | PRI |         |                             |
+    | description      | text          | YES  |     | NULL    |                             |
+    | masterSection    | int(11)       | YES  |     | 0       |                             |
+    | permissions      | varchar(1024) | YES  |     | NULL    |                             |
+    | strictMode       | binary(1)     | NO   |     | 0       |                             |
+    | subnetOrdering   | varchar(16)   | YES  |     | NULL    |                             |
+    | order            | int(3)        | YES  |     | NULL    |                             |
+    | editDate         | timestamp     | YES  |     | NULL    | on update CURRENT_TIMESTAMP |
+    | showVLAN         | tinyint(1)    | NO   |     | 0       |                             |
+    | showVRF          | tinyint(1)    | NO   |     | 0       |                             |
+    | DNS              | varchar(128)  | YES  |     | NULL    |                             |
+    | showSupernetOnly | int(1)        | YES  |     | 0       |                             |
+    +------------------+---------------+------+-----+---------+-----------------------------+
+
+    """
+
+    def read_sections(self, id=None):
+        """Read sections"""
+        data = {
+            "controller": "sections",
+        }
+
+        if id is not None:
+            data.update({"id": id})
+
+        return self.query_phpipam(method='GET', **data)
+
