@@ -45,7 +45,7 @@ def decrypt(key, encoded):
 
 
 class PHPIPAM:
-    def __init__(self, url, api_id, api_key):
+    def __init__(self, url, api_id, api_key, timeout=5):
         """Constructor
 
         Parameters
@@ -56,6 +56,7 @@ class PHPIPAM:
         self.url = url
         self.api_id = api_id
         self.api_key = api_key
+        self.timeout = timeout
 
     def query_phpipam(self, method, **kwargs):
         """Query PHPIPAM API
@@ -80,13 +81,13 @@ class PHPIPAM:
 
         try:
             if method == 'GET':
-                response = requests.get(url, verify=False, allow_redirects=False)
+                response = requests.get(url, verify=False, allow_redirects=False, timeout=self.timeout)
             elif method == 'POST':
-                response = requests.post(url, verify=False, allow_redirects=False)
+                response = requests.post(url, verify=False, allow_redirects=False, timeout=self.timeout)
             elif method == 'PATCH':
-                response = requests.patch(url, verify=False, allow_redirects=False)
+                response = requests.patch(url, verify=False, allow_redirects=False, timeout=self.timeout)
             elif method == 'DELETE':
-                response = requests.delete(url, verify=False, allow_redirects=False)
+                response = requests.delete(url, verify=False, allow_redirects=False, timeout=self.timeout)
             else:
                 print "Wrong method"
                 return None

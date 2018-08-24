@@ -68,7 +68,7 @@ setup(
     author_email='adzhurinskij@gmail.com',
     license='MIT',
     name='phpipam-api-pythonclient',
-    version='0.1.3',
+    version='0.1.4',
     url='https://github.com/adzhurinskij/phpipam-api-pythonclient',
     description='Python Library for PHPIPAM API',
     packages=find_packages(),
